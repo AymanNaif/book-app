@@ -1,0 +1,82 @@
+body {
+  background-color: rgb(97, 97, 97);
+}
+div {
+  margin-left: 1.5%;
+  width: 97%;
+  background-color: silver;
+}
+img {
+  margin-left: 20%;
+  margin-top: 10px;
+  width: 60%;
+}
+
+header {
+  background-color: black;
+  color: white;
+  height: 50px;
+}
+header h2 {
+  margin-left: 10px;
+  margin-top: -5px;
+  margin-bottom: 10px;
+}
+
+main div {
+  margin-top: 20px;
+}
+
+.books h3,
+.books h4 {
+  text-align: center;
+}
+.books p {
+  width: 90%;
+  margin-left: 5%;
+  background-color: red;
+  margin-bottom: 10px;
+}
+/* end of Show Page */
+
+/* Start Of Search Page */
+form {
+  margin-top: 50px;
+}
+
+#text {
+  width: 90%;
+  height: 35px;
+  margin: 5%;
+  cursor: pointer;
+}
+
+#title {
+  cursor: pointer;
+
+  width: 20px;
+}
+
+section {
+  margin-top: 20px;
+  width: 80%;
+  margin-left: 7%;
+  background-color: silver;
+  text-align: center;
+  padding: 15px;
+}
+
+button {
+  margin-top: 20px;
+  margin-left: 6%;
+  height: 40px;
+  width: 90%;
+  background-color: black;
+  cursor: pointer;
+  color: white;
+}
+
+button:hover {
+  background-color: rgb(12, 12, 12);
+  font-size: 10px;
+}
