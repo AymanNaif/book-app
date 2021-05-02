@@ -16,7 +16,7 @@ server.get('/', (req, res) => {
   res.render('./pages/index')
 });
 
-server.get('/test', booksHandelr)
+server.get('/show', booksHandelr)
 
 //  books Data ................
 function booksHandelr(req, res) {
@@ -28,7 +28,8 @@ function booksHandelr(req, res) {
 
       let booksArr = boData.items.map((item) =>new Books(item));
 
-      res.status(200).send(booksArr);
+      //res.status(200).send(booksArr);
+      res.render('./pages/searches/show',{booksData:booksArr})
 
     })
     .catch(error => {
@@ -44,11 +45,6 @@ function Books(bookData) {
   this.img_url = bookData.volumeInfo.imageLinks;
 
 }
-server.get('/show', (req, res) => {
-  res.render('./pages/searches/show')
-});
-
-
 
 server.listen(PORT,() => {
   console.log(`listing to PORT ${PORT}`);
