@@ -4,29 +4,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Results</title>
+    <!-- <link rel="icon" href="demo_icon.gif"  sizes="16x16"> -->
+    <!-- <link rel="stylesheet" href="styles.css"> -->
     <link rel="stylesheet" href="styles.css">
+
+
+    <title>Books App</title>
 </head>
 <body>
     <header>
         <h2>Best Book</h2>
         
     </header>
-    <main>
-        <% booksData.forEach(element)=>{ %> 
-           <% <div class="books"> %>
-                <img src=<%= "element.img_url.smallThumbnail" || "https://i.imgur.com/J5LVHEL.jpg" %> alt="">
-                <h3><%= element.title %></h3>
-                <h4><%= element.authors %></h4>
-                <p><%= element.description %></p>
-            </div>
-       <% } %>
-        <!-- <div class="books">
-        <img src="https://i.imgur.com/J5LVHEL.jpg" alt="">
-        <h3>Title</h3>
-        <h4>authour name</h4>
-        <p>desc</p>
-    </div> -->
-    </main>
+    <form action="/search/new" method="POST">
+        <input name="search" id="text" type="text" placeholder="Enter a title or author">
+        <section>
+        <label for="">Title<input type="radio" name="radio" id="title" value="title"></label><br></section>
+        <section>
+        <label for="">Author<input type="radio" name="radio" id="author" value="author"></label><br></section>
+        <button>Search The Google Book API</button>
+    </form>
 </body>
 </html>
