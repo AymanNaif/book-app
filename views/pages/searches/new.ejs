@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles.css">
+    <title>Results</title>
+
+    
+</head>
+<body>
+    <header>
+        <h2>Best Book</h2>
+        
+    </header>
+    <main>
+
+        <% booksData.forEach((element)=>{ %> 
+             <div class="books">
+                <img src="<%= element.img_url %>" alt="">
+                <h3><%= element.title %></h3>
+                <h4><%= element.authors %></h4>
+                <p><%= element.description %></p>
+            </div>
+       <% }) %>
+        <!-- <div class="books">
+        <img src="https://i.imgur.com/J5LVHEL.jpg" alt="">
+        <h3>Title</h3>
+        <h4>authour name</h4>
+        <p>desc</p>
+    </div> -->
+    </main>
+</body>
+</html>
