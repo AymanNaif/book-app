@@ -4,22 +4,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error</title>
-    <link rel="stylesheet" href="../styles.css">
+    <title>Book Details</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    
     <header>
         <h2>Best Book</h2>
         <h3 style="text-align: center; margin-top: 35px;">Find Your Favourit Book</h3>
         <Button><a href="/" style="text-decoration: none;color: white; font-size: 20px;">Home</a></Button>
         <Button><a href="/search" style="text-decoration: none;color: white; font-size: 20px;">Search Your Book</a></Button>
       </header>
-      <main>
-          <% wrong.forEach(item=>{
-            <p><%=item %></p>
-            
-          }) %>
-      </main>
+    <main>
+        
+<% dataBaseData.forEach((element)=>{ %> 
+    <div class="books">
+       <img src="<%= element.img_url %>" alt="">
+       <h3><%= element.title %></h3>
+       <h4><%= element.authors %></h4>
+       <p><%= element.description %></p>
+         <h5>ISBN is: <%= element.isbn %></h5>
+
+  
+   </div>
+  <% }) %>
+    </main>
+    
 </body>
 </html>

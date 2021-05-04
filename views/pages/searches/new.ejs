@@ -12,8 +12,10 @@
 <body>
     <header>
         <h2>Best Book</h2>
-        
-    </header>
+        <h3 style="text-align: center; margin-top: 35px;">Find Your Favourit Book</h3>
+        <Button><a href="/" style="text-decoration: none;color: white; font-size: 20px;">Home</a></Button>
+        <Button><a href="/search" style="text-decoration: none;color: white; font-size: 20px;">Search Your Book</a></Button>
+      </header>
     <main>
 
         <% booksData.forEach((element)=>{ %> 
@@ -22,6 +24,19 @@
                 <h3><%= element.title %></h3>
                 <h4><%= element.authors %></h4>
                 <p><%= element.description %></p>
+                 <h5>ISBN is: <%= element.isbn %></h5>
+                 
+
+
+                <form action="/books" method="POST">
+                    <input style="display:none;" type="text"  name="img_url" id="text" value="<%= element.img_url %>">
+                    <input style="display:none;" type="text" name="title" id="title" value="<%= element.title %>">
+                   <input style="display:none;" type="text" name="authors" id="author" value="<%= element.authors %>">
+                   <input style="display:none;" type="text" name="description" id="author" value="<%= element.description %>">
+                   <input style="display:none;" type="text" name="isbn" id="isbn" value="<%= element.isbn %>">
+
+                   <button style="margin-bottom: 10px; ">Select This Book</button>
+                </form>
             </div>
        <% }) %>
         <!-- <div class="books">

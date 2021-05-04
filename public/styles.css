@@ -13,9 +13,9 @@ img {
 }
 
 header {
-  background-color: black;
   color: white;
-  height: 50px;
+  /* height: 250px; */
+  margin-bottom: 50px;
 }
 header h2 {
   margin-left: 10px;
@@ -37,12 +37,15 @@ main div {
   /* background-color: red; */
   margin-bottom: 10px;
 }
+.books {
+  margin-bottom: 50px;
+}
 /* end of Show Page */
 
 /* Start Of Search Page */
-form {
+/* form {
   margin-top: 50px;
-}
+} */
 
 #text {
   width: 90%;
@@ -89,4 +92,16 @@ button:hover {
   border: 3px solid black;
   width: 70%;
   margin-left: 15%;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  text-align: center;
+}
+#list {
+  color: white;
 }

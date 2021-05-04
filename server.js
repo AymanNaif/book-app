@@ -31,9 +31,7 @@ if (ENV === 'DEV') {
   });
 }
 // Routes and functions
-server.get('/', (req, res) => {
-  res.render('./pages/index')
-});
+server.get('/', addBookHome);
 
 server.get('/search', (req, res) => {
   res.render('./pages/searches/show.ejs') // render show.ejs page
@@ -41,7 +39,8 @@ server.get('/search', (req, res) => {
 server.post('/search/new', booksHandelr) // read the data from the API and render the created objects inside new.ejs page
 
 
-// server.post('/books', bookDetailsHandelr);
+server.post('/books', bookSelectHandelr);
+server.get('/books/:id', bookDetailsHandelr);
 
 // end of route
 
@@ -50,9 +49,7 @@ server.post('/search/new', booksHandelr) // read the data from the API and rende
 function booksHandelr(req, res) {
   let search = req.body.search; // set the search value depend on form in show.ejs file fot text input name
   let term = req.body.radio // set the search value depend on form in show.ejs file fot radio input value
-  // select the data if it's exists
   let booksUrl = `https://www.googleapis.com/books/v1/volumes?q=+${search}:${term}`;
-  // let SQL = `SELECT * FROM books`;
 
   superagent.get(booksUrl)
     .then((bookData) => {
@@ -60,34 +57,23 @@ function booksHandelr(req, res) {
       let booksArr = [];
       boData.items.forEach((item) => {
         booksArr.push(new Books(item))
-        // console.log(new Books(item).title)
-        let SQL = `INSERT INTO books (img_url,title,authors,description) VALUES ($1,$2,$3,$4) RETURNING *`;
-        let safeValue = [new Books(item).img_url, new Books(item).title, new Books(item).authors, new Books(item).description];
-
-        client.query(SQL,safeValue).then(result => {
-          console.log(result)
-          res.send(result);
-        })
         return booksArr;
       });
 
-
-      // I have to Insert the data inside db
-      // res.status(200).send(booksArr);
       res.render('./pages/searches/new.ejs',{booksData:booksArr}) // render new.js page and send data to it
 
     })
     .catch(error => {
-      console.log(error);
-      res.send(error);
+      res.render('./pages/error',{wrong:error});
     });
 }
 
 function Books(bookData) {
-  this.title = bookData.volumeInfo.title || 'N/A';
-  this.authors = bookData.volumeInfo.authors || 'N/A';
-  this.description = bookData.volumeInfo.description || 'N/A';
+  this.title = bookData.volumeInfo.title || `there's no title for this book`;
+  this.authors = bookData.volumeInfo.authors || `the authors name not available for this book`;
+  this.description = bookData.volumeInfo.description || `there's no description for this book`;
   this.img_url = bookData.volumeInfo.imageLinks.smallThumbnail || bookData.volumeInfo.imageLinks.thumbnail || `https://i.imgur.com/J5LVHEL.jpg`;
+  this.isbn=bookData.volumeInfo.industryIdentifiers[0].identifier || 'ISBN NOT Valid'
 
 }
 client.connect()
@@ -97,6 +83,36 @@ client.connect()
     });
 
   });
-// let SQL = INSERT INTO books (img_url,title,authors,description) VALUES ($1,$2,$3,$4)
-// let SQL = SELECT * FROM books
-// let safeValue = []
+
+function bookSelectHandelr(req, res) {
+  let SQL = `INSERT INTO books (img_url,title,authors,description,isbn) VALUES ($1,$2,$3,$4,$5) RETURNING *`;
+  let safeValue = [req.body.img_url, req.body.title, req.body.authors, req.body.description, req.body.isbn];
+  client.query(SQL, safeValue).then(result => {
+    res.redirect(`/books/${result.rows[0].id}`);
+  }) .catch(error => {
+    res.render('./pages/error',{wrong:error});
+  });
+}
+
+function addBookHome(req, res) {
+  let SQL = 'SELECT * FROM books;';
+  client.query(SQL).then(result => {
+    res.render('pages/index.ejs',{dataBaseData:result.rows});
+  }) .catch(error => {
+    res.render('./pages/error',{wrong:error});
+  });
+}
+
+function bookDetailsHandelr(req, res) {
+  let SQL = 'SELECT * FROM books WHERE id=$1;';
+  let safeValue = [req.params.id];
+  client.query(SQL,safeValue).then(result => {
+    res.render('pages/books/show',{dataBaseData:result.rows});
+  }) .catch(error => {
+    res.render('./pages/error', {wrong: error});
+  });
+}
+// Database Heroku
+// client = new pg.Client({
+//   connectionString: DATABASE_URL,
+// });

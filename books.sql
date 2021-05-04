@@ -5,5 +5,6 @@ CREATE TABLE IF NOT EXISTS books(
     img_url VARCHAR(255),
     title VARCHAR(255),
     authors VARCHAR(255),
-    description VARCHAR(255)  
+    description VARCHAR(255),  
+    ISBN VARCHAR(255) 
 );
