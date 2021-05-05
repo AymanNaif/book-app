@@ -7,9 +7,11 @@ const server = express();
 const PORT = process.env.PORT || 3000;
 const superagent = require('superagent');
 const cors = require('cors');
+const methodOverride = require('method-override');
 server.use(cors());
 server.use(express.static('./public'));
 
+server.use(methodOverride('_method'));
 // ejs setup
 server.set('view engine', 'ejs');
 server.use(express.urlencoded({ extended: true }));
@@ -42,6 +44,8 @@ server.post('/search/new', booksHandelr) // read the data from the API and rende
 server.post('/books', bookSelectHandelr);
 server.get('/books/:id', bookDetailsHandelr);
 
+server.put('/updateBook/:id', updateBook);
+server.delete('/deleteBook/:id', deleteBook);
 // end of route
 
 
@@ -116,3 +120,18 @@ function bookDetailsHandelr(req, res) {
 // client = new pg.Client({
 //   connectionString: DATABASE_URL,
 // });
+function updateBook(req,res) {
+  let SQL = `UPDATE books SET title=$1,description=$2,contact=$3,status=$4,category=$5 WHERE id=$6;`;
+  let safeValue = [req.body.img_url, req.body.title, req.body.authors, req.body.description, req.body.isbn, req.params.id];
+  client.query(SQL, safeValue).then(() => {
+    res.redirect(`/books/${req.params.id}`);
+  })
+}
+
+function deleteBook(req, res) {
+  let SQL = `DELETE FROM books WHERE id=$1;`;
+  let safeValue = [req.params.id];
+  client.query(SQL, safeValue).then(() => {
+    res.redirect(`/`)
+  });
+}

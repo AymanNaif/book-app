@@ -105,3 +105,20 @@ p {
 #list {
   color: white;
 }
+
+.updateForm form input {
+  height: 130px;
+  text-align: center;
+  margin-left: 3%;
+  width: 260px;
+  margin-bottom: 5%;
+  padding: 20px;
+}
+#title {
+  height: 130px;
+  text-align: center;
+  margin-left: 3%;
+  width: 260px;
+  margin-bottom: 5%;
+  padding: 20px;
+}
