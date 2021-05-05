@@ -23,11 +23,29 @@
        <h4><%= element.authors %></h4>
        <p><%= element.description %></p>
          <h5>ISBN is: <%= element.isbn %></h5>
+      
+         <form action="/deleteBook/<%= element.id %>?_method=delete" method="post" >
+         <button>DELETE</button>
+      </form>
 
+         <button id="update">UPDATE</button>
+         <div style="display: none;" class="updateForm">
+          <h5>Update book data:</h5>
+         <form action="/updateBook/<%= element.id %>?_method=put" method="post" >
+          <input  type="text"  name="img_url" id="img_url" value="<%= element.img_url %>"> <br>
+          <input  type="text" name="title" id="title" value="<%= element.title %>"><br>
+         <input  type="text" name="authors" id="author" value="<%= element.authors %>"><br>
+         <input  type="text" name="description" id="description" value="<%= element.description %>"><br>
+         <input  type="text" name="isbn" id="isbn" value="<%= element.isbn %>"><br>
+ 
+         <button style="margin-bottom: 10px; ">Make Update</button>
+      </form>
+    </div>
   
    </div>
   <% }) %>
     </main>
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/app.js"></script>
 </body>
 </html>
