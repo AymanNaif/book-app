@@ -121,7 +121,7 @@ function bookDetailsHandelr(req, res) {
 //   connectionString: DATABASE_URL,
 // });
 function updateBook(req,res) {
-  let SQL = `UPDATE books SET title=$1,description=$2,contact=$3,status=$4,category=$5 WHERE id=$6;`;
+  let SQL = `UPDATE books SET img_url=$1,title=$2,authors=$3,description=$4,isbn=$5 WHERE id=$6;`;
   let safeValue = [req.body.img_url, req.body.title, req.body.authors, req.body.description, req.body.isbn, req.params.id];
   client.query(SQL, safeValue).then(() => {
     res.redirect(`/books/${req.params.id}`);
